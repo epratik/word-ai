@@ -12,10 +12,10 @@ export default function Home() {
   const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i));
   const [wordList, setWordList] = useState([]);
   const [filteredWordList, setFilteredWordList] = useState([]);
-  const [searchInp, setSearchInp] = useState(0);
+  const [searchInp, setSearchInp] = useState("");
 
   const onSearchClick = async () => {
-    const response = await fetch('/api/search?searchType=singleValueNumeric&scoreToMatch=' + searchInp);
+    const response = await fetch('/api/search?searchType=singleValueNumeric&matchWith=' + searchInp);
     const data = await response.json();
     setWordList(data);
     setFilteredWordList(data);
@@ -37,7 +37,7 @@ export default function Home() {
         <div className="container col-sm-6 ">
           <div className="row ">
             <div className="input-group">
-              <input onChange={e => setSearchInp(Number(e.target.value))} type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+              <input onChange={e => setSearchInp((e.target.value))} type="search" className="form-control rounded" placeholder="type in score or a word to search" aria-label="Search" aria-describedby="search-addon" />
               <button type="button" onClick={() => onSearchClick()} className="btn btn-outline-primary">search</button>
             </div>
           </div>
